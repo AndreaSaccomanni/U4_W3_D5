@@ -1,29 +1,41 @@
 package org.example;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
+@Table(name = "utenti")
 public class Utente {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String cognome;
     private LocalDate dataDiNascita;
     private String numeroTessera;
+
+    @OneToMany(mappedBy = "utente")
+    private List<Prestito> prestiti;
 
     public Utente(String nome, String cognome, LocalDate dataDiNascita, String numeroTessera) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
         this.numeroTessera = numeroTessera;
+
     }
 
     public Utente() {
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -2,6 +2,9 @@ package org.example;
 
 import org.example.Enumeration.Periodicita;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Rivista extends Articolo {
     private Periodicita periodicita;
 

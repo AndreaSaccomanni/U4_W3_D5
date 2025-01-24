@@ -1,5 +1,8 @@
 package org.example;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Libro extends Articolo {
     private String autore;
     private String genere;
