@@ -10,9 +10,10 @@ public abstract class Articolo {
     @Id
     @GeneratedValue
     private int id;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     int ISBN;
     @Column(nullable = false)
+
     String titolo;
     int annoPubblicazione;
     int numeroPagine;

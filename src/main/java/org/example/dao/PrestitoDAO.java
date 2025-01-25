@@ -1,11 +1,15 @@
 package org.example.dao;
 
+import net.bytebuddy.asm.Advice;
 import org.example.Articolo;
 import org.example.Prestito;
 import org.example.Utente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.time.LocalDate;
+import java.util.List;
 
 
 public class PrestitoDAO {
@@ -48,6 +52,13 @@ public class PrestitoDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    //Metodo per cercare prestiti scaduti e non ancora restituiti
+    public List<Prestito> ricercaPrestitiScaduti(){
+        Query q = em.createQuery("SELECT p FROM Prestito p WHERE CURRENT_DATE > p.dataRestituzionePrevista" +
+                " AND p.dataRestituzioneEffettiva IS NULL ");
+        return q.getResultList();
     }
 }
 

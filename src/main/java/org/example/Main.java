@@ -23,15 +23,23 @@ public class Main {
 
         // ---- CREAZIONE E SALVATAGGIO DI ARTICOLI NEL CATALOGO ----
 
-        // dopo aver istanziato i vari  articoli, e salvati nel database, con il metodo findById salvo dento i vari oggetti, le istanze gia presenti nel DB
+        // dopo aver istanziato i vari  articoli, e salvati nel database, con il metodo findById, salvo dento i vari oggetti, le istanze gia presenti nel DB
 
         Articolo libro1 = articoloDAO.findById(19);
         Articolo libro2 = articoloDAO.findById(21);
         Articolo libro3 = articoloDAO.findById(22);
 
-//        articoloDAO.save(libro1);
-//        articoloDAO.save(libro2);
-//        articoloDAO.save(libro3);
+//        Articolo libro5 = new Libro(654321, "Lo Hobbit", 1937, 310, "J.R.R. Tolkien", "Fantasy");
+//        Articolo rivista4 = new Rivista(987654, "Scientific American", 1954, 60, Periodicita.MENSILE);
+
+//        articoloDAO.save(libro4);
+//        articoloDAO.save(libro5);
+//        articoloDAO.save(rivista4);
+
+
+        Articolo libro5 =  articoloDAO.findById(24);
+        Articolo rivista4 =articoloDAO.findById(25);
+
 
 
         Articolo rivista1 = articoloDAO.findById(16);
@@ -50,28 +58,34 @@ public class Main {
 //        utenteDAO.save(utente2);
 //        utenteDAO.save(utente3);
 
+//        utenteDAO.remove(4);
+//        utenteDAO.remove(5);
+//        utenteDAO.remove(6);
+//        utenteDAO.remove(7);
+
 //        creazione di prestiti con elementi gia presenti nel database
 
-        Prestito prestito1 = new Prestito(utente1, libro1, LocalDate.of(2025, 1, 20), LocalDate.of(2025, 2, 20), null);
-        Prestito prestito2 = new Prestito(utente2, libro2, LocalDate.of(2025, 1, 22), LocalDate.of(2025, 2, 22), null);
-        Prestito prestito3 = new Prestito(utente3, libro3, LocalDate.of(2025, 1, 25), LocalDate.of(2025, 2, 25), null);
-
+        Prestito prestito1 = new Prestito(utente1, libro1, LocalDate.of(2025, 1, 20), null);
+        Prestito prestito2 = new Prestito(utente2, libro2, LocalDate.of(2025, 1, 22), null);
+        Prestito prestito3 = new Prestito(utente3, libro3, LocalDate.of(2025, 1, 25), null);
+        Prestito prestito4 = new Prestito(utente1, rivista3, LocalDate.of(2024, 7, 19), null);
 //        prestitoDAO.save(prestito1);
-        prestitoDAO.save(prestito2);
-        prestitoDAO.save(prestito3);
-
+//        prestitoDAO.save(prestito2);
+//        prestitoDAO.save(prestito3);
+//        prestitoDAO.save(prestito4);
         //---- APPLICAZIONE DEI METODI -----
 
         //AGGIUNTA ARTICOLO AL CATALOGO
         //Articolo articoloAggiunto  = articoloDAO.save(libro1);
 
         //RIMOZIONE ELEMENTO TRAMITE CODICE ISBN
-        //articoloDAO.remove(789012);
+        //articoloDAO.remove(123456);
+//        articoloDAO.removeById(23);
 
         //RICERCA TRAMITE CODICE ISBN
         Articolo articoloTrovatoConISBN = articoloDAO.findByISBN(123456);
         if (articoloTrovatoConISBN != null) {
-            System.out.println("Articolo trovato tramite ISBN: " + articoloTrovatoConISBN);
+            System.out.println("ARTICOLO TROVATO TRAMITE ISBN: " + articoloTrovatoConISBN);
         } else {
             System.out.println("Articolo non trovato!");
         }
@@ -79,30 +93,47 @@ public class Main {
         //RICERCA TRAMITE ANNO DI PUBBLICAZIONE
         List<Articolo> articoliTrovatiConAnnoPubblicazione = articoloDAO.findByAnnoPubblicazione(1954);
         if (articoliTrovatiConAnnoPubblicazione != null) {
-            System.out.println("Articoli trovati tramite l'anno di pubblicazione: ");
+            System.out.println("ARTICOLI TROVATI TRAMITE L'ANNI DI PUBBLICAZIONE: ");
             articoliTrovatiConAnnoPubblicazione.forEach(System.out::println);
         } else {
             System.out.println("Articolo non trovato!");
         }
 
         //RICERCA TRAMITE AUTORE
-        List<Libro> articoliTrovatiTramiteAutore = articoloDAO.ricercaTramiteAutore("Dante Alighieri");
+        List<Libro> articoliTrovatiTramiteAutore = articoloDAO.ricercaTramiteAutore("J.R.R. Tolkien");
         if (articoliTrovatiTramiteAutore != null) {
-            System.out.println("Libri trovati tramite autore: ");
+            System.out.println("LIBRI TROVATI TRAITE AUTORE: ");
             articoliTrovatiTramiteAutore.forEach(System.out::println);
         } else {
             System.out.println("Nessun libro trovato!");
         }
 
         //RICERCA TRAMITE TITOLO O PARTE DI ESSO
-        List<Articolo> articoliTrovatiTramiteTitolo = articoloDAO.ricercaTramiteTitolo("Java");
+        List<Articolo> articoliTrovatiTramiteTitolo = articoloDAO.ricercaTramiteTitolo("Signore");
         if (articoliTrovatiTramiteTitolo != null) {
+            System.out.println("ARTICOLI TROVATI TRAMITE IL TITOLO: ");
             articoliTrovatiTramiteTitolo.forEach(System.out::println);
         } else {
             System.out.println("Nessun articolo trovato!");
         }
 
+        //RICERCA ELEMENT IN PRESTITO TRAMITE LA TESSERA UTENTE
+        List<Articolo> articoliTrovatiTramiteTessera = articoloDAO.ricercaElementiInPrestitoTramiteTessera("TESSERA001");
+        if (articoliTrovatiTramiteTessera != null) {
+            System.out.println("ARTICOLI TROVATI TRAMITE LA TESSERA  IUTENTE: ");
+            articoliTrovatiTramiteTessera.forEach(System.out::println);
+        } else {
+            System.out.println("Nessun articolo trovato!");
+        }
 
+        //RICERCA PRESTITI SCADUTI E NON RESTITUITI
+        List<Prestito> prestitiScadutiDaRestituire = prestitoDAO.ricercaPrestitiScaduti();
+        if (prestitiScadutiDaRestituire != null) {
+            System.out.println("PRESTITI SCADUTI E NON RESTITUITI: ");
+            prestitiScadutiDaRestituire.forEach(System.out::println);
+        } else {
+            System.out.println("Nessun prestito trovato!");
+        }
     }
 
 

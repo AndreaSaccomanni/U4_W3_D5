@@ -15,6 +15,7 @@ public class Utente {
     @Column(nullable = false)
     private String cognome;
     private LocalDate dataDiNascita;
+    @Column(unique = true)
     private String numeroTessera;
 
     @OneToMany(mappedBy = "utente")

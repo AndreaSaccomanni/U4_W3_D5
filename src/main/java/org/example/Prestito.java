@@ -22,11 +22,11 @@ public class Prestito {
 
 
 
-    public Prestito(Utente utente, Articolo elementoPrestato, LocalDate dataInizioPrestito, LocalDate dataRestituzionePrevista, LocalDate dataRestituzioneEffettiva) {
+    public Prestito(Utente utente, Articolo elementoPrestato, LocalDate dataInizioPrestito, LocalDate dataRestituzioneEffettiva) {
         this.utente = utente;
         this.elementoPrestato = elementoPrestato;
         this.dataInizioPrestito = dataInizioPrestito;
-        this.dataRestituzionePrevista = dataRestituzionePrevista;
+        this.dataRestituzionePrevista = dataInizioPrestito.plusDays(30);
         this.dataRestituzioneEffettiva = dataRestituzioneEffettiva;
     }
 
